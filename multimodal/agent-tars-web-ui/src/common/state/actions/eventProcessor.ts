@@ -5,7 +5,7 @@ import { AgentEventStream, ToolResult, Message } from '@/common/types';
 import { determineToolType } from '@/common/utils/formatters';
 import { messagesAtom } from '../atoms/message';
 import { toolResultsAtom, toolCallResultMap } from '../atoms/tool';
-import { isProcessingAtom, activePanelContentAtom } from '../atoms/ui';
+import { isProcessingAtom, activePanelContentAtom, modelInfoAtom } from '../atoms/ui';
 import { plansAtom, PlanKeyframe } from '../atoms/plan';
 import { replayStateAtom } from '../atoms/replay';
 import { ChatCompletionContentPartImage } from '@multimodal/agent-interface';
@@ -60,6 +60,12 @@ export const processEventAction = atom(
         break;
 
       case 'agent_run_start':
+        if (event.provider || event.model) {
+          set(modelInfoAtom, {
+            provider: event.provider || '',
+            model: event.model || '',
+          });
+        }
         set(isProcessingAtom, true);
         break;
 
@@ -356,6 +362,7 @@ function handleToolResult(set: Setter, sessionId: string, event: AgentEventStrea
     error: event.error,
     type: determineToolType(event.name, event.content),
     arguments: args,
+    _extra: event._extra,
   };
 
   // 1. 先更新消息atom和工具结果 - 确保chat UI能立即响应
@@ -441,6 +448,7 @@ function handleToolResult(set: Setter, sessionId: string, event: AgentEventStrea
       toolCallId: result.toolCallId,
       error: result.error,
       arguments: args,
+      _extra: result._extra,
     });
   }
 
