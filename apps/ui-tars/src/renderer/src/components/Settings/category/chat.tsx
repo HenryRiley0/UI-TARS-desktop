@@ -28,7 +28,7 @@ import { Input } from '@renderer/components/ui/input';
 
 const formSchema = z.object({
   language: z.enum(['en', 'zh']),
-  maxLoopCount: z.number().min(25).max(200),
+  maxLoopCount: z.number().min(25).max(20000),
   loopIntervalInMs: z.number().min(0).max(3000),
 });
 
@@ -123,7 +123,7 @@ export function ChatSettings() {
                 <FormItem>
                   <FormLabel>Max Loop</FormLabel>
                   <FormDescription>
-                    Enter a number between 25-200
+                    Enter a number between 25-20000
                   </FormDescription>
                   <FormControl>
                     <Input

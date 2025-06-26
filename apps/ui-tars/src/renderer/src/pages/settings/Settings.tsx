@@ -52,7 +52,7 @@ const formSchema = z.object({
   vlmBaseUrl: z.string().url(),
   vlmApiKey: z.string().min(1),
   vlmModelName: z.string().min(1),
-  maxLoopCount: z.number().min(25).max(200),
+  maxLoopCount: z.number().min(25).max(20000),
   loopIntervalInMs: z.number().min(0).max(3000),
   searchEngineForBrowser: z.nativeEnum(SearchEngineForSettings),
   reportStorageBaseUrl: z.string().optional(),
@@ -122,7 +122,7 @@ export default function Settings() {
       vlmBaseUrl: '',
       vlmApiKey: '',
       vlmModelName: '',
-      maxLoopCount: 100,
+      maxLoopCount: 20000,
       loopIntervalInMs: 1000,
       reportStorageBaseUrl: '',
       searchEngineForBrowser: SearchEngineForSettings.GOOGLE,
@@ -407,7 +407,7 @@ export default function Settings() {
                           <Input
                             type="number"
                             // disabled={isRemoteAutoUpdatedPreset}
-                            placeholder="Enter a number between 25-200"
+                            placeholder="Enter a number between 25-20000"
                             {...field}
                             value={field.value === 0 ? '' : field.value}
                             onChange={(e) =>

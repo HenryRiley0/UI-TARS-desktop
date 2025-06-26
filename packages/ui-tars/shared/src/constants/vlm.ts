@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 export const IMAGE_PLACEHOLDER = '<image>';
-export const MAX_LOOP_COUNT = 100;
+export const MAX_LOOP_COUNT = 20000;
 export const MAX_IMAGE_LENGTH = 5;
 
 export const IMAGE_FACTOR = 28;

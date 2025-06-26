@@ -9,6 +9,7 @@ import path, { resolve } from 'node:path';
 import { MakerDMG } from '@electron-forge/maker-dmg';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
+import { MakerDeb } from '@electron-forge/maker-deb';
 import { AutoUnpackNativesPlugin } from '@electron-forge/plugin-auto-unpack-natives';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import type { ForgeConfig } from '@electron-forge/shared-types';
@@ -202,6 +203,17 @@ const config: ForgeConfig = {
       name: 'UiTars',
       setupIcon: 'resources/icon.ico',
     }),
+    new MakerDeb(
+      {
+        options: {
+          icon: 'resources/icon.png',
+          bin: 'UI-TARS',
+          name: 'UI-TARS',
+          description: 'UI TARS Desktop Application',
+        },
+      },
+      ['linux', 'linux-x64'],
+    ),
     // https://github.com/electron/forge/issues/3712
     new MakerDMG({
       overwrite: true,
